@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/files" method="post" enctype="multipart/form-data">
+        <input type="file" id="files" name="files" multiple />
+        <input type="submit">
+    </form>
+
+    
+    <% if(files.length>0){ %>
+        <h4>All Files Uploaded</h4>
+        <form action="/selectedFiles" method="POST">
+            <% for(let i=0;i<files.length; i++){ %>
+                <input type="radio" id=<%= files[i].name %> name=<%= files[i].name %> value=<%= files[i].name %>>
+                <label for=<%= files[i].name %>><%= files[i].name %></label>
+                <br>
+            <% } %>
+            <input type="submit">
+        </form>
+    <% } %>
+
+    <% if(selectedFiles.length>0){ %>
+        <h4>Selected Files to Display</h4>
+        <% for(let i=0;i<selectedFiles.length; i++){ %>
+            <li><%= selectedFiles[i]%></li>
+        <% } %>
+    <% } %>
+</body>
+</html>
