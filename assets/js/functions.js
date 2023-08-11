@@ -1,6 +1,11 @@
 let order=true
+let finalData=[]
 function toggleOrder(){
     order=!order
+}
+
+function setData(data){
+    finalData=data
 }
 
 function sortData(data, index){
@@ -35,12 +40,28 @@ function sortData(data, index){
     displayTable([column, ...data])
 }
 
+function reset(data){
+    displayTable(data)
+}
+
 
 function displayTable(data){
     $('#columnRow').empty()
     $('#tableBody').empty()
+    $('#searchByColumnValueForm').empty()
+    $('#resetButton').empty()
+    $('#header').empty()
+
     console.log("Order in displayTable:", order)
+
+    let $select=$(`
+        <select name="column" id="columnSelect" required>
+            <option value="">Choose a Column</option>
+        </select>`
+    )
+    // style="display: none; 
     data[0].forEach((column, indx) => {
+
         let $th;
         if(order){
             $th=$(`<th value=${column}>${column} &nbsp <i class="fa-solid fa-angle-down"></i></th>`)
@@ -53,7 +74,11 @@ function displayTable(data){
             //sort by the column
             sortData(data, e.data.index)
         })
+
+        let $op=$(`<option value="${indx}">${column}</option>`)
+
         $('#columnRow').append($th)
+        $select.append($op)
     });
 
     data.slice(1).forEach(row=>{
@@ -63,9 +88,9 @@ function displayTable(data){
         })
         $('#tableBody').append($tr)
     })
-    $('#header').empty()
-    $('#header').append(     
 
+    
+    $('#header').append(
         `
         <div style="display: flex; flex-direction: row; align-items: center;">
             <h4>CSV File Viewer</h4>
@@ -75,6 +100,34 @@ function displayTable(data){
                 <a href="/">Display another file</a>
             </button>
         </div>`)
+
+    $('#searchByColumnValueForm').append($select)
+    $('#searchByColumnValueForm').append('<input type="text" name="columnValue" id="columnValue" placeholder="Enter column value" required></input>')
+    $('#searchByColumnValueForm').append('<input type="submit">')
+    
+    let $button=$('<button type="button">Reset</button>')
+    $button.on('click', function(){reset(finalData)})
+    $('#resetButton').append($button)
+}
+
+export function searchByColumnValueForm(event){
+    console.log('Search By Column Form Submitted')
+    console.log($('#searchByColumnValueForm').serializeArray())
+
+    let formData=$('#searchByColumnValueForm').serializeArray()
+    console.log(formData)
+    console.log(formData[0]['value'])
+    console.log(formData[1]['value'])
+    let columnIndx=formData[0]['value']
+    let columnValue=formData[1]['value']
+
+    let column=finalData[0]
+    let filteredData=finalData.filter(data=>{
+        return data[columnIndx]==columnValue
+    })
+    console.log(filteredData)
+    displayTable([column, ...filteredData])
+    event.preventDefault();
 }
 
 export function selectedFilesFormOnSubmit(event){
@@ -93,7 +146,8 @@ export function selectedFilesFormOnSubmit(event){
             success: function(dataa){
                 let {fileName, data}=dataa
                 console.log(fileName, data)
-                $('#displaySelectedFilesDiv').append(`<p>Selected File to Display: ${fileName}</p>`)
+                setData(data)
+                $('#displaySelectedFilesDiv').append(`<p>Selected FileName: ${fileName}</p>`)
                 $('#selectedFilesDiv').remove();
                 $('#fileSubmitDiv').remove();
 

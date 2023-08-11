@@ -44,6 +44,11 @@ body {
     align-items: flex-start;
 }
 
+#selectedFiles_SearchBox{
+    display: flex;
+    flex-direction: row;
+}
+
 #displaySelectedFilesDiv{
     display: flex;
     flex-direction: row;

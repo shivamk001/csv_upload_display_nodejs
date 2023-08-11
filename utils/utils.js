@@ -1,5 +1,4 @@
 function splitIntoTokens(str){
-    console.log("String:", str)
     let found=false
     let column=''
     let row=[]
