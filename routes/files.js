@@ -7,7 +7,7 @@ const upload = multer({
     fileFilter: function fileFilter(req, file, cb){
         
         let fileExt=file.originalname.split('.')[1]
-        console.log('Filefilter:',file, fileExt)
+        //console.log('Filefilter:',file, fileExt)
         if(fileExt=='csv'){
             cb(null, true)
         }

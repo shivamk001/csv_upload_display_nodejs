@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://kit.fontawesome.com/ca58c8957e.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-2.25.2.min.js" charset="utf-8"></script>
     <title>CSV File Viewer</title>
 </head>
 <body>
@@ -15,7 +16,6 @@
                 <h4>CSV File Viewer</h4>
             </div>
         </div>
-    
     
         <div id="fileSubmitDiv">
             <form action="/files" method="post" enctype="multipart/form-data" id="fileSubmitForm">
@@ -44,9 +44,6 @@
             <% } %>
         </div>
     
-        
-    
-    
         <div id="tableDiv">
             <div id="selectedFiles_SearchBox">
                 <div id="displaySelectedFilesDiv"></div>
@@ -55,6 +52,11 @@
                     </form>
                 </div>
                 <div id="resetButton"></div>
+                <div action="" id="plotFormDiv">
+                    <form id="plotForm">
+
+                    </form>
+                </div>
             </div>
             
             <table id="table">
@@ -67,9 +69,14 @@
             </table>
 
             <div id="paginationDiv">
-                
+
             </div>
         </div>
+
+        <div id="chartingDiv">
+
+        </div>
+        
     </div>
 
 

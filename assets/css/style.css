@@ -74,6 +74,14 @@ tr:nth-child(even){
     background-color: #D6EEEE;
 }
 
+#chartingDiv{
+
+    /* width: 500px;
+    height: 500px; */
+    /* background-color: black; */
+    z-index: 2;
+}
+
 a{
     text-decoration: none;
 }
