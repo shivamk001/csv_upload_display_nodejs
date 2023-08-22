@@ -15,6 +15,7 @@ const upload = multer({
             cb(null, false)
         }        
 } })
+//'files' in upload.array() is the name of input
 router.post('/', upload.array('files'), fileController.files)
 router.post('/selectedFiles', fileController.selectedFiles)
 module.exports=router

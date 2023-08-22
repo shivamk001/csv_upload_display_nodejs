@@ -46,17 +46,27 @@
     
         <div id="tableDiv">
             <div id="selectedFiles_SearchBox">
-                <div id="displaySelectedFilesDiv"></div>
-                <div id="searchBox">
-                    <form id="searchByColumnValueForm">
-                    </form>
-                </div>
-                <div id="resetButton"></div>
-                <div action="" id="plotFormDiv">
-                    <form id="plotForm">
+                <div id="forms">
+                    <div id="searchBox">
+                        <form id="searchByColumnValueForm">
+                        </form>
+                        <div id="resetButton"></div>
+                    </div>
 
-                    </form>
+
+                    
+                    <div  id="plotFormDiv">
+                        <form action="" id="plotForm">
+                        </form>
+                    </div>
                 </div>
+
+                <div id="misc">
+                    <div id="displaySelectedFileDiv"></div>
+                    <div id="displayTotalRowsDiv"></div>
+                    <div id="rowsPerColumn"></div>
+                </div>
+
             </div>
             
             <table id="table">
@@ -69,9 +79,26 @@
             </table>
 
             <div id="paginationDiv">
-
+                <!--  -->
+                <div id="buttonsContainer">
+                    <select name="selectNum" id="selectNumOfButtons">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                    </select>
+                    <button id="goToOne"><<</button>
+                    <button id="shiftOneLeft"><</button>
+                    <div id="numsButtonDiv"></div>
+                    <button id="shiftOneRight">></button>
+                    <button id="goToLast">>></button>
+                </div>
+                <div id="pageNumberDiv"><small>Page Number: 1</small></div>
             </div>
         </div>
+
+
+
+
 
         <div id="chartingDiv">
 
@@ -81,7 +108,9 @@
 
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    
     <script type="module" src="/js/functions.js"></script>
+    <script type="module" src="/js/pagination.js"></script>
     <script type="module" src="/js/script.js"></script>
 </body>
 </html>

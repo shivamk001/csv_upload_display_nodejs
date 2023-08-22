@@ -46,14 +46,37 @@ body {
 
 #selectedFiles_SearchBox{
     display: flex;
+    flex-direction: column;
+}
+
+#forms{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#searchBox{
+    display: flex;
     flex-direction: row;
 }
 
-#displaySelectedFilesDiv{
-    /* display: flex;
+#misc{
+    display: flex;
     flex-direction: row;
-    justify-content: center; */
-    margin-bottom: 20px;
+    justify-content: space-around;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+#displaySelectedFilesDiv{
+    display: inline;
+}
+
+#rowsPerColumn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 #tableDiv{
@@ -80,6 +103,22 @@ tr:nth-child(even){
     height: 500px; */
     /* background-color: black; */
     z-index: 2;
+}
+
+#paginationDiv{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+
+
+#buttonsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 a{

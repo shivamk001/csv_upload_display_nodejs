@@ -1,6 +1,9 @@
+import {attachEventListenersPagination, setDocumentLengthPagination, setRowsPerPagePagination, resetselectNumOfButtons, setTotalButtonsPagination, changeButtonsPerDisplay, addnumsButtonsDivPagination, changePageNumber} from './pagination.js'
+
 let order=true
 let columnHeader=[]
-let finalData=[]
+let allData=[]
+let datum=[]
 let rowPerPage=5
 let fileName=''
 
@@ -10,11 +13,20 @@ function toggleOrder(){
 
 function setRowPerPage(rPP){
     rowPerPage=rPP
-    //console.log(rowPerPage)
+    setRowsPerPagePagination(rPP)
+    setTotalButtonsPagination()
+    resetselectNumOfButtons()
+    changeButtonsPerDisplay(5)
+    addnumsButtonsDivPagination()
+    changePageNumber(1)
 }
 
-function setData(data){
-    finalData=[...data]
+function setAllData(data){
+    allData=[...data]
+}
+
+function setDatum(data){
+    datum=data
 }
 
 function setColumnHeader(header){
@@ -54,10 +66,9 @@ function sortData(data, index){
     toggleOrder()
     //console.log('Data:', data, order)
 
-    displayTable([...data])
+    //displaySearchBoxTablePagination([...data])
+    createTable([...data])
 }
-
-
 
 function createSelect(){
     let $select=$(`
@@ -76,6 +87,8 @@ function createSelect(){
 }
 
 function createTable(data){
+    $('#columnRow').empty()
+    $('#tableBody').empty()
     columnHeader.forEach((column, indx) => {
         let $th;
         if(order){
@@ -117,62 +130,78 @@ function createHeader(){
         </div>`)
 }
 
-function pageButtonClick(event){
-    //console.log('Page Button Clicked:', event.target.value)
-    let pageNumber=event.target.value
+function pageButtonClick(pageNumber){
+    console.log('PAGENUMBER:', pageNumber)
     let upper=pageNumber*rowPerPage
     let lower=upper-rowPerPage
-    //console.log(lower, upper)
-    displayTable([...finalData.slice(lower, upper)])
+    console.log("UPPER LOWER:",upper, lower)
+    createTable(datum.slice(lower, upper))
 }
 
 function createSelectedFilesDiv(){
-    $('#displaySelectedFilesDiv').append(`<p>Selected FileName: ${fileName}</p>`)
-    $('#displaySelectedFilesDiv').append(`<p>Displaying ${rowPerPage} rows</p>`)
+    $('#displaySelectedFileDiv').empty()
+    $('#displaySelectedFileDiv').append(`<small>Selected FileName: ${fileName}</small>`)
 }
 
-function createPaginationButtons(){
-    let len=finalData.length
-    let $paginationButtons=$('<div id="paginationButtonsDiv"></div>')
-    for(let i=0;i<len/rowPerPage;i++){
-        let $paginationButton=$(`<button class="paginationButton" value="${i+1}">${i+1}</button>`)
-        $paginationButton.on('click',  pageButtonClick)
-        $paginationButtons.append($paginationButton)
-    }
-    $('#paginationDiv').append($paginationButtons)
+function createTotalRowsDiv(){
+    $('#displayTotalRowsDiv').empty()
+    $('#displayTotalRowsDiv').append(`<small> Total Rows: ${datum.length}</small>`)
 }
 
-function changePagination(event){
+function changeRowsPerColumn(event){
     let val=event.target.value
-    //console.log('Row per page changed', val)
     setRowPerPage(val)
-    displayTable(finalData.slice(0, val))
+    console.log('Rowspercolumn:', val)
+    //displaySearchBoxTablePagination(finalData.slice(0, val))
+    createTable(datum.slice(0, val))
 }
 
-function createPaginationSelect(){
-
+function createRowsPerColumnSelect(){
+    let $rowsPerColumn=$('#rowsPerColumn')
+    // $rowsPerColumnSelect.empty()
+    console.log($rowsPerColumn)
     let $select=$(`    
-    <select value="paginationVal" id="pagination">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="75">75</option>
-        <option value="100">100</option>
-    </select>`)
-    $select.on('change', changePagination)
-    $('#paginationDiv').append('<p>Select rows per column:</p>')
-    $('#paginationDiv').append($select)
-    
+        <select value="paginationVal" id="rowsPerColumnSelect">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="75">75</option>
+            <option value="100">100</option>
+        </select>`)
+    $select.on('change', changeRowsPerColumn)
+    $rowsPerColumn.append('<small>Displaying rows per column:</small>')
+    $rowsPerColumn.append($select)
 }
 
-function reset(data){
-    displayTable(finalData.slice(0, rowPerPage))
+export function resetRowsPerColumnSelect(){
+    $('#rowsPerColumnSelect').val(5)
+}
+
+function resetsearchByColumnValueForm(){
+    document.getElementById('searchByColumnValueForm').reset()
+    //$('#searchByColumnValueForm').val('')
+}
+
+function reset(){
+    setDatum(allData)
+    createTotalRowsDiv()
+    setRowPerPage(5)
+    createTable(datum.slice(0, rowPerPage))
+
+    resetselectNumOfButtons()
+    resetRowsPerColumnSelect()
+    resetsearchByColumnValueForm()
+    setDocumentLengthPagination(datum.length)
+    setRowsPerPagePagination(rowPerPage)
+    setTotalButtonsPagination()
+    changeButtonsPerDisplay(5)
+    addnumsButtonsDivPagination()
 }
 
 function createResetButton(){
-    let $button=$('<button type="button">Reset</button>')
-    $button.on('click', function(){reset(finalData)})
+    let $button=$('<button type="button">Reset to full data</button>')
+    $button.on('click', function(){reset()})
     $('#resetButton').append($button)
 }
 
@@ -188,7 +217,7 @@ function plotData(event){
     //console.log(column, graph)
     console.log(column, graph)
     let dataa=[]
-    finalData.forEach(col=>{
+    datum.forEach(col=>{
         dataa.push(col[column])
     })
     let xarr=[]
@@ -212,8 +241,6 @@ function plotData(event){
     
     const data = [{
 
-    //   orientation:"v",
-    //   marker: {color:"rgba(0,0,255)"}
     }];
 
     switch(graph){
@@ -268,53 +295,34 @@ function createPlotForm(){
 
 }
 
-function displayTable(data){
-    $('#tableDiv').css('display', 'block')
-    $('#columnRow').empty()
-    $('#tableBody').empty()
-    $('#searchByColumnValueForm').empty()
-    $('#resetButton').empty()
-    $('#header').empty()
-    $('#paginationDiv').empty()
-    $('#displaySelectedFilesDiv').empty()
-    $('#plotForm').empty()
-
-    //console.log("Order in displayTable:", order)    
-    //console.log("Data in displayTable:", data)
-    createSelect()
-
-    createTable(data)
-
-    createHeader()
-    
-    createResetButton()
-
-    createPlotForm()
-
-    createPaginationSelect()
-
-    createSelectedFilesDiv()
-
-    createPaginationButtons()
-}
 
 export function searchByColumnValueForm(event){
     console.log('Search By Column Form Submitted')
-    //console.log($('#searchByColumnValueForm').serializeArray())
 
     let formData=$('#searchByColumnValueForm').serializeArray()
-    //console.log(formData)
-    //console.log(formData[0]['value'])
-    //console.log(formData[1]['value'])
+
     let columnIndx=formData[0]['value']
     let columnValue=formData[1]['value']
 
-    let column=finalData[0]
-    let filteredData=finalData.filter(data=>{
+    let filteredData=datum.filter(data=>{
         return data[columnIndx]==columnValue
     })
-    //console.log(filteredData)
-    displayTable([...filteredData])
+    console.log(filteredData)
+    //table stuff
+    setDatum(filteredData)
+    createTotalRowsDiv()//
+    
+    //pagination stuff
+    setDocumentLengthPagination(datum.length)
+    setRowPerPage(5)
+    createTable(datum.slice(0, rowPerPage))//
+    resetRowsPerColumnSelect()//
+    //resetselectNumOfButtons()//
+    //
+    //setRowsPerPagePagination(rowPerPage) //called twice, first through setRowPerPage
+    //setTotalButtonsPagination()//
+    //changeButtonsPerDisplay(5)
+    //addnumsButtonsDivPagination()
     event.preventDefault();
 }
 
@@ -335,13 +343,29 @@ export function selectedFilesFormOnSubmit(event){
                 let {fileName, data}=dataa
                 console.log(fileName, data)
                 setColumnHeader([...data[0]])
-                setData([...data.slice(1)])
+                setAllData([...data.slice(1)])
+                setDatum([...data.slice(1)])
                 setFileName(fileName)
-                
+
                 $('#selectedFilesDiv').remove();
                 $('#fileSubmitDiv').remove();
-
-                displayTable(finalData.slice(0, 5))
+                $('#tableDiv').css('display', 'block')
+                
+                //table, header, form stuff
+                createHeader()
+                createSelectedFilesDiv()
+                createTotalRowsDiv()
+                createRowsPerColumnSelect()
+                createSelect()
+                createResetButton()
+                createPlotForm()
+                createTable(datum.slice(0, rowPerPage))
+                
+                //pagination stuff
+                attachEventListenersPagination(pageButtonClick)
+                setDocumentLengthPagination(datum.length)
+                //this function takes care of a lot of things in pagination
+                setRowPerPage(rowPerPage)
             }
         })
         event.preventDefault();
