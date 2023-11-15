@@ -5,13 +5,21 @@ const multer  = require('multer')
 const upload = multer({ 
     dest: 'uploads/', 
     fileFilter: function fileFilter(req, file, cb){
-        
-        let fileExt=file.originalname.split('.')[1]
+        console.log("File:", file)
+        let arr=file.originalname.split('.')
+        let len=arr.length
+        let fileExt=arr[len-1]
         //console.log('Filefilter:',file, fileExt)
         if(fileExt=='csv'){
+            req.locals={}
+            req.locals.msg=''
+            console.log('MSG:', req.locals.msg)
             cb(null, true)
         }
         else{
+            req.locals={}
+            req.locals.msg='Wrong file extension. Please upload a csv file.'
+            console.log(req.locals.msg)
             cb(null, false)
         }        
 } })

@@ -22,9 +22,20 @@ body {
 
 #fileSubmitDiv{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    margin-bottom: 20px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#fileSubmitDivHeading{
+    margin: 10px;
+}
+
+#fileSubmitDivMsg{
+    margin-top: 0px;
+    margin-bottom: 10px;
+    color: red;
 }
 
 #filesDiv{
