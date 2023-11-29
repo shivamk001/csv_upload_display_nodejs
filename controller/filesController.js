@@ -1,10 +1,29 @@
 const fs = require('fs')
-
 const path=require('path')
 const utils=require('../utils/utils.js')
 
-console.log('Utils')
-
+//console.log('Utils')
+function deleteFile(){
+    try{
+        console.log(Date.now())
+        let dirPath=path.join(__dirname, '..', 'uploads')
+        console.log(dirPath)
+        fs.readdir(dirPath, (err, files)=>{
+            console.log(files, err)
+            files.map(file=>{
+                //console.log(path.join(dirPath, file))
+                fs.unlink(path.join(dirPath, file), (err)=>{
+                    if(err){console.log(`Error deleteing file: ${err}`)}
+                    console.log(`File deleted successfully`)
+                })
+            });
+            console.log('Files deleted successfully')
+        })
+    }
+    catch(err){
+        console.log(`Error in deleted files: ${err}`)
+    }
+}
 
 //RECEIVES THE FILES UPLOADED THEN SEND THE LIST OF FILES TO SELECT FROM 
 module.exports.files=function(req, res){
@@ -56,6 +75,11 @@ module.exports.selectedFiles=async (req, res)=>{
         else{
             let finalData=[]
             const readStream=fs.createReadStream(filePath)
+            console.log(process.env.TIME)
+            setTimeout(()=>{
+                console.log(Date.now())
+                deleteFile()
+            }, process.env.TIME)
             readStream
             .on('data', function(data){
                 data=data.toString('utf-8').split('\n')
