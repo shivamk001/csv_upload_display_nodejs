@@ -16,8 +16,8 @@
                 <h1>CSV File Viewer</h1>
             </div>
             <div class="headerMembers" class="tooltipDiv">
-                <a href="/" id="homeButton"><i class="fa-solid fa-house fa-2xl" style="color: white;"></i></a>
-                <p class="tooltip">Home page</p>
+                <a href="/" id="homeButton" title="Home Page"><i class="fa-solid fa-house fa-2xl" style="color: white;"></i></a>
+                <p class="tooltip" >Home page</p>
             </div>
             
         </section>
@@ -38,7 +38,7 @@
                                 </label>
                             <% } %> 
                         </div>
-                        <input type="submit">
+                        <input type="submit" title="Select a file then submit">
                     </form>
                 <% } %>
             </div>
@@ -62,14 +62,14 @@
                     
                     <div id="displayTotalRowsDiv"></div>
                     <div id="searchBox" class="formBox">
-                        <form id="searchByColumnValueForm" class="formRow">
+                        <form id="searchByColumnValueForm" class="formRow" title="Search a row by column value">
                         </form>
                     </div>
 
 
                     
                     <div  id="plotFormDiv" class="formBox">
-                        <form action="" id="plotForm" class="formRow">
+                        <form action="" id="plotForm" class="formRow" title="Select a column to plot as graph">
                         </form>
                     </div>
 
@@ -103,11 +103,11 @@
                         <option value="10">10</option>
                         <option value="25">25</option>
                     </select> -->
-                    <button id="goToOne" class="arrowButton"><<</button>
-                    <button id="shiftOneLeft" class="arrowButton"><</button>
+                    <button id="goToOne" class="arrowButton" title="Go to first"><<</button>
+                    <button id="shiftOneLeft" class="arrowButton" title="Shift by one to left"><</button>
                     <div id="numsButtonDiv"></div>
-                    <button id="shiftOneRight" class="arrowButton">></button>
-                    <button id="goToLast" class="arrowButton">>></button>
+                    <button id="shiftOneRight" class="arrowButton" title="Shift by one to right">></button>
+                    <button id="goToLast" class="arrowButton" title="Go to last">>></button>
                 </div>
                 <div id="pageNumberDiv"><small>Page Number: 1</small></div>
             </div>

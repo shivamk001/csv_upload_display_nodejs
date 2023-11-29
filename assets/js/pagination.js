@@ -18,13 +18,13 @@ export function setRowsPerPagePagination(rPP){
 
 export function setTotalButtonsPagination(){
     totalButtons=documentLength/rowsPerPage
-    console.log('TotalButtons:', totalButtons, rowsPerPage, documentLength)
+    //console.log('TotalButtons:', totalButtons, rowsPerPage, documentLength)
     totalButtons=totalButtons.toString()
     totalButtons=totalButtons.split('.')
     if(totalButtons.length==2){
         totalButtons=parseInt(parseInt(totalButtons[0])+1)
     }
-    console.log("totalbuttons:", totalButtons)
+    //console.log("totalbuttons:", totalButtons)
     changeCurrentStart(1)
     changeCurrentEnd(totalButtons)
 }
@@ -34,7 +34,7 @@ export function setTotalButtonsPagination(){
 export function addnumsButtonsDivPagination(){
     let $numButtonsDiv=$('#numsButtonDiv')
     $numButtonsDiv.empty()
-    console.log("CurrentStart:", currentStart, "buttonsPerDisplay:", buttonsPerDisplay)
+    //console.log("CurrentStart:", currentStart, "buttonsPerDisplay:", buttonsPerDisplay)
     for(let i=currentStart;i<(currentStart+buttonsPerDisplay);i++){
             let $button=$(`<button class="numButton" value="${i}">${i}</button>`)
             $button.on('click', function(event){
@@ -77,7 +77,7 @@ export let attachEventListenersPagination=(pageButtonClick)=>{
     $shiftOneLeft.on('click', shiftOneLeft)
 
     setPageButtonClick(pageButtonClick)
-    console.log("attachEventListenersPagination:",currentStart, currentEnd);
+    //console.log("attachEventListenersPagination:",currentStart, currentEnd);
 
     let $shiftOneRight=$('#shiftOneRight')
     $shiftOneRight.on('click', shiftOneRight)
@@ -86,7 +86,7 @@ export let attachEventListenersPagination=(pageButtonClick)=>{
     let $goToLast=$('#goToLast')
     $goToLast.on('click', goToLast)
 
-    console.log(documentLength);
+    //console.log(documentLength);
 }
 
 export let changeCurrentStart=(st)=>{
@@ -100,23 +100,23 @@ export let changeCurrentEnd=(en)=>{
 export let changeButtonsPerDisplay=(val)=>{
     if(val){
         buttonsPerDisplay=parseInt(val)
-        console.log("ButtonsPerDisplay1:", buttonsPerDisplay, "totalButtons:", totalButtons)
+        //console.log("ButtonsPerDisplay1:", buttonsPerDisplay, "totalButtons:", totalButtons)
         if(buttonsPerDisplay>totalButtons){
             buttonsPerDisplay=totalButtons
         }
-        console.log("ButtonsPerDisplay2:", buttonsPerDisplay)
+        //console.log("ButtonsPerDisplay2:", buttonsPerDisplay)
     }
     else{
-        console.log("ButtonsPerDisplay1:", buttonsPerDisplay, "totalButtons:", totalButtons)
+        //console.log("ButtonsPerDisplay1:", buttonsPerDisplay, "totalButtons:", totalButtons)
         if(buttonsPerDisplay>totalButtons){
             buttonsPerDisplay=totalButtons
         }
-        console.log("ButtonsPerDisplay2:", buttonsPerDisplay)
+        //console.log("ButtonsPerDisplay2:", buttonsPerDisplay)
     }
 
     changeCurrentStart(1)
     changeCurrentEnd(buttonsPerDisplay)
-    console.log("changeButtonsPerDisplay:",currentStart, currentEnd);
+    //console.log("changeButtonsPerDisplay:",currentStart, currentEnd);
     addnumsButtonsDivPagination()
 }
 
@@ -143,7 +143,7 @@ export let goToOne=()=>{
 }
 
 export let goToLast=()=>{
-    console.log("TotalButtons:", totalButtons, "ButtonsPerDisplay:", buttonsPerDisplay)
+    //console.log("TotalButtons:", totalButtons, "ButtonsPerDisplay:", buttonsPerDisplay)
     currentStart=totalButtons-buttonsPerDisplay+1
     currentEnd=totalButtons;
     addnumsButtonsDivPagination()

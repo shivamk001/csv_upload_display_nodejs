@@ -116,10 +116,10 @@ function createTable(data) {
     columnHeader.forEach((column, indx) => {
         let $th;
         if (order) {
-            $th = $(`<th value=${column} id=${column}><small>${column}</small> <i class="fa-solid fa-angle-down"></i></th>`)
+            $th = $(`<th value=${column} id=${column} title="Sort in Ascending Order by ${column}"><small>${column}</small> <i class="fa-solid fa-angle-down"></i></th>`)
         }
         else {
-            $th = $(`<th value=${column} id=${column}><small>${column}</small> <i class="fa-solid fa-angle-up"></i></th>`)
+            $th = $(`<th value=${column} id=${column} title="Sort in Descending Order  by ${column}"><small>${column} </small> <i class="fa-solid fa-angle-up"></i></th>`)
         }
         $th.on('click', { value: column, index: indx }, function (e) {
             console.log(e.data)
@@ -189,7 +189,7 @@ function createRowsPerColumnSelect() {
 
 
 export function resetRowsPerColumnSelect() {
-    $('#rowsPerColumnSelect').val(5)
+    $('#rowsPerColumnSelect').val(10)
 }
 
 
@@ -219,7 +219,7 @@ function createResetButton() {
         addnumsButtonsDivPagination()
     }
 
-    let $button = $('<button type="button"><i class="fa-solid fa-arrows-rotate"></i></button>')
+    let $button = $('<button type="button" title="Reset data to show all rows"><i class="fa-solid fa-arrows-rotate"></i></button>')
     $button.on('click', function () { reset() })
     $('#searchByColumnValueForm').append($button)
     
@@ -293,7 +293,7 @@ function createPlotForm() {
         event.preventDefault()
     }
 
-    let $button = $('<button type="submit"><i class="fa-solid fa-chart-simple"></i></button>')
+    let $button = $('<button type="submit" title="Click to plot"><i class="fa-solid fa-chart-simple"></i></button>')
     // $button.on('click', function(){
     //     plotData()})
 
