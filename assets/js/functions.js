@@ -2,7 +2,7 @@ import {
     attachEventListenersPagination,
     setDocumentLengthPagination,
     setRowsPerPagePagination,
-    resetselectNumOfButtons,
+    // resetselectNumOfButtons,
     setTotalButtonsPagination,
     changeButtonsPerDisplay,
     addnumsButtonsDivPagination,
@@ -11,9 +11,9 @@ import {
 
 let order = true//IN WHICH ORDER THE ROWS SHOULD BE DISPLAYED
 let columnHeader = []//THE COLUMN HEADER
-let allData = []//USED TO PRESERVE FULL DATA
-let datum = []//FULL DATA
-let rowPerPage = 5//HOW MANY ROWS TO DISPLAY PER PAGE
+let allData = []//TO PRESERVE FULL DATA, USED TO RESET DATUM
+let datum = []//FULL DATA, USED EVERYWHERE
+let rowPerPage = 10//HOW MANY ROWS TO DISPLAY PER PAGE
 let fileName = ''//NAME OF THE CSV FILE
 
 
@@ -25,7 +25,7 @@ function setRowPerPage(rPP) {
     rowPerPage = rPP
     setRowsPerPagePagination(rPP)
     setTotalButtonsPagination()
-    resetselectNumOfButtons()
+    // resetselectNumOfButtons()
     changeButtonsPerDisplay(5)
     addnumsButtonsDivPagination()
     changePageNumber(1)
@@ -51,6 +51,8 @@ function setFileName(fN) {
     fileName = fN
 }
 
+
+//TO SORT THE DATA IN EITHER DESCENDING ORDER OR ASCENDING ORDER
 function sortData(data, index) {
     console.log("Order in sortData:", order)
     //console.log("Data in SortData:", data)
@@ -81,7 +83,8 @@ function sortData(data, index) {
     //console.log('Data:', data, order)
 
     //displaySearchBoxTablePagination([...data])
-    createTable([...data])
+    //createTable([...data])
+    createTable(data.slice(0, rowPerPage))
 }
 
 
@@ -102,7 +105,7 @@ function createSelectColumn() {
     });
     $('#searchByColumnValueForm').append($select)
     $('#searchByColumnValueForm').append('<input type="text" name="columnValue" id="columnValue" placeholder="Enter column value" required></input>')
-    $('#searchByColumnValueForm').append('<input type="submit">')
+    $('#searchByColumnValueForm').append('<button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>')
 }
 
 
@@ -113,15 +116,15 @@ function createTable(data) {
     columnHeader.forEach((column, indx) => {
         let $th;
         if (order) {
-            $th = $(`<th value=${column} id=${column}>${column} &nbsp <i class="fa-solid fa-angle-down"></i></th>`)
+            $th = $(`<th value=${column} id=${column}><small>${column}</small> <i class="fa-solid fa-angle-down"></i></th>`)
         }
         else {
-            $th = $(`<th value=${column} id=${column}>${column} &nbsp <i class="fa-solid fa-angle-up"></i></th>`)
+            $th = $(`<th value=${column} id=${column}><small>${column}</small> <i class="fa-solid fa-angle-up"></i></th>`)
         }
         $th.on('click', { value: column, index: indx }, function (e) {
-            //console.log(e.data)
+            console.log(e.data)
             //sort by the column
-            sortData(data, e.data.index)
+            sortData(datum, e.data.index)
         })
 
 
@@ -132,7 +135,7 @@ function createTable(data) {
     data.forEach(row => {
         let $tr = $('<tr>')
         row.forEach(col => {
-            $tr.append(`<td>${col}</td>`)
+            $tr.append(`<td><small>${col}</small></td>`)
         })
         $('#tableBody').append($tr)
     })
@@ -140,33 +143,18 @@ function createTable(data) {
 
 
 
-//CREATES THE TABLE HEADER
-function createHeader() {
-    $('#header').empty()
-    $('#header').append(
-        `
-        <div style="display: flex; flex-direction: row; align-items: center; color: white;margin: 1%;">
-            <h4>CSV File Viewer</h4>
-        </div>
-        <div style="display: flex; flex-direction: row; align-items: center;margin: 1%;">
-            <button id="displayAnother">
-                <a href="/">Display another file</a>
-            </button>
-        </div>`)
-}
-
 
 
 //CREATE A DIV WHICH DISPLAYS ALL NAME OF THE FILE SELECTED TO DISPLAY AS TABLE
 function createSelectedFilesDiv() {
     $('#displaySelectedFileDiv').empty()
-    $('#displaySelectedFileDiv').append(`<small>Selected FileName: ${fileName}</small>`)
+    $('#displaySelectedFileDiv').append(`<small>Selected FileName</small><p style="font-weight: bold;">${fileName}</p>`)
 }
 
 //CREATE A DIV WHICH DISPLAYS TOTAL NUMBER OF ROWS OF THE FILE SELECTED TO DISPLAY AS TABLE
 function createTotalRowsDiv() {
     $('#displayTotalRowsDiv').empty()
-    $('#displayTotalRowsDiv').append(`<small> Total Rows: ${datum.length}</small>`)
+    $('#displayTotalRowsDiv').append(`<small> Total Rows: </small><span style="font-weight: bold;">${datum.length}</span>`)
 }
 
 
@@ -187,7 +175,6 @@ function createRowsPerColumnSelect() {
     console.log($rowsPerColumn)
     let $select = $(`    
         <select value="paginationVal" id="rowsPerColumnSelect">
-            <option value="5">5</option>
             <option value="10">10</option>
             <option value="25">25</option>
             <option value="50">50</option>
@@ -219,10 +206,10 @@ function createResetButton() {
     function reset() {
         setDatum(allData)
         createTotalRowsDiv()
-        setRowPerPage(5)
+        setRowPerPage(10)
         createTable(datum.slice(0, rowPerPage))
 
-        resetselectNumOfButtons()
+        // resetselectNumOfButtons()
         resetRowsPerColumnSelect()
         resetsearchByColumnValueForm()
         setDocumentLengthPagination(datum.length)
@@ -232,9 +219,10 @@ function createResetButton() {
         addnumsButtonsDivPagination()
     }
 
-    let $button = $('<button type="button">Reset to full data</button>')
+    let $button = $('<button type="button"><i class="fa-solid fa-arrows-rotate"></i></button>')
     $button.on('click', function () { reset() })
-    $('#resetButton').append($button)
+    $('#searchByColumnValueForm').append($button)
+    
 }
 
 
@@ -305,7 +293,7 @@ function createPlotForm() {
         event.preventDefault()
     }
 
-    let $button = $('<button type="submit">Plot</button>')
+    let $button = $('<button type="submit"><i class="fa-solid fa-chart-simple"></i></button>')
     // $button.on('click', function(){
     //     plotData()})
 
@@ -352,7 +340,7 @@ export function searchByColumnValueForm(event) {
 
     //pagination stuff
     setDocumentLengthPagination(datum.length)
-    setRowPerPage(5)
+    setRowPerPage(10)
     createTable(datum.slice(0, rowPerPage))//
     resetRowsPerColumnSelect()//
     //resetselectNumOfButtons()//
@@ -413,7 +401,7 @@ export function selectedFilesFormOnSubmit(event) {
 
             $('#selectedFilesDiv').remove();
             $('#fileSubmitDiv').remove();
-            $('#tableDiv').css('display', 'block')
+            $('#tableDiv').css('display', 'flex')
 
             //table, header, form stuff
             //createHeader()

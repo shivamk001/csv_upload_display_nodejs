@@ -1,0 +1,97 @@
+body{
+    margin: 0%;
+    height: 100vh;
+    width: 100vw;
+    overflow-y: hidden;
+    font-family: Arial, sans-serif;
+}
+
+#main{
+    height: 100%;
+    width: 100%;
+}
+
+#header{
+    height: 10%;
+    width: 100%;
+    position: fixed;
+    top: 0%;
+    background-color: #3B4483;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#fileSubmitDiv{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 10%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.formHeading{
+    margin: 1%;
+    text-align: center;
+    font-size: larger;
+    font-weight: 600;
+}
+
+#fileSubmitDivMsg{
+    margin-top: 0px;
+    margin-bottom: 10px;
+    color: red;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 70%;
+}
+
+
+
+
+#filesInputDiv{
+    border: 1px solid #3B4483;
+    border-left: none;
+    border-radius: 10px;
+    margin: 1%;
+    width: 100%;
+    height: 50%;
+    
+}
+
+#filesInput{
+    height: 100%;
+}
+
+#filesInput::file-selector-button{
+    background-color: #3B4483;
+    border: none;
+    border-radius: 5px;
+    border-right: 1px solid #3B4483;
+    color: white;
+    height: 100%;
+    cursor: pointer;
+}
+
+input[type='submit']{
+    margin: 1%;
+    width: 50%;
+    height: 50%;
+    background-color: #3B4483;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: large;
+}

@@ -50,9 +50,9 @@ function setPageButtonClick(func){
     pageButtonClick=func
 }
 
-export function resetselectNumOfButtons(){
-    $('#selectNumOfButtons').val(5)
-}
+// export function resetselectNumOfButtons(){
+//     $('#selectNumOfButtons').val(5)
+// }
 
 export function changePageNumber(pageNumber){
     $('#pageNumberDiv').empty()
@@ -61,12 +61,12 @@ export function changePageNumber(pageNumber){
 
 export let attachEventListenersPagination=(pageButtonClick)=>{
 
-    let $select=$('#selectNumOfButtons')
-    $select.on('change', 
-        function(event){
-            let val=event.target.value
-            changeButtonsPerDisplay(val)
-    })
+    // let $select=$('#selectNumOfButtons')
+    // $select.on('change', 
+    //     function(event){
+    //         let val=event.target.value
+    //         changeButtonsPerDisplay(val)
+    // })
 
 
     let $goToOne=$('#goToOne')

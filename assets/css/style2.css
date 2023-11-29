@@ -1,0 +1,287 @@
+body{
+    margin: 0%;
+    height: 100vh;
+    width: 100vw;
+    overflow-y: hidden;
+    font-family: Arial, sans-serif;
+}
+
+
+#main{
+    height: 100%;
+    width: 100%;
+    margin: 0%;
+}
+
+#header{
+    height: 10%;
+    width: 100%;
+    position: fixed;
+    top: 0%;
+    background-color: #3B4483;
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.headerMembers{
+    margin-left: 1%; 
+    margin-right: 1%;
+    height: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center;
+    color: white;
+    
+}
+
+.tooltipDiv{
+    position: relative;
+}
+
+.tooltip{
+    visibility: visible;
+    position: absolute;
+    top: 70%;
+    right: 100%;
+    color: white;
+    background-color: black;
+    padding: 5px;
+
+}
+
+.tooltipDiv:hover .tooltip{
+    visibility: visible;
+}
+
+
+
+
+
+.sectionStyle{
+    height: 90%;
+    width: 98%;
+    position: fixed;
+    top: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /* margin-bottom: 20px; */
+    margin: 1%;
+}
+
+
+input[type='submit']{
+    margin: 1%;
+    width: 50%;
+    /* height: 50%; */
+    background-color: #3B4483;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+
+#fileSubmitDiv{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 10%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formHeading{
+    margin: 1%;
+    text-align: center;
+    font-size: larger;
+    font-weight: 600;
+}
+
+#fileSubmitDivMsg{
+    margin-top: 0px;
+    margin-bottom: 10px;
+    color: red;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 70%;
+}
+
+
+.radioOptionsContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    /* overflow-y: scroll; */
+}
+
+
+.option{
+    display: block;
+    font-size: small;
+    user-select: none;
+    cursor: pointer;
+    margin: 3%;
+    width: 100%;
+}
+
+.option input[type='radio']{
+    height: 8px;
+}
+
+.option input[type='radio']:hover{
+    background-color: lightgray;
+}
+
+.form input[type='submit']{
+    margin: 1%;
+    width: 100px;
+    height: 35px;
+    background-color: #3B4483;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: large;
+}
+
+.button{
+    margin: 1%;
+    width: auto;
+    height: auto;
+    background-color: #3B4483;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: large;
+}
+
+
+.margin{
+    margin: 1%;
+}
+
+/* CSS FOR FORMS TO  */
+#forms, #misc{
+    /* margin: 1%;
+    margin-right: 1%; */
+    margin-bottom: 1%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+}
+
+#misc{
+    justify-content: none;
+}
+
+.formBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    /* height: 100%; */
+    width: auto;
+    /* margin: 1%; */
+}
+
+form > button{
+    background-color: #3B4483;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+
+
+p{
+    margin: 0%;
+}
+
+#paginationDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#buttonsContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1%;
+    cursor: pointer;
+}
+
+.numButton{
+    background-color: #3B4483;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.arrowButton{
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+
+
+
+/* SCROLLBAR */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #3B4483; 
+    border: 1px solid white;
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3B4483; 
+  }
+
+
+
+
+  /* TABLE */
+
+  th{
+    text-align: center;
+    cursor: pointer;
+  }
+
+
+  td{
+    text-align: center;
+  }

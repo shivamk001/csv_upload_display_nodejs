@@ -3,119 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style1.css">
     <script src="https://kit.fontawesome.com/ca58c8957e.js" crossorigin="anonymous"></script>
     <script src="https://cdn.plot.ly/plotly-2.25.2.min.js" charset="utf-8"></script>
     <title>CSV File Viewer</title>
 </head>
 <body>
-    <div id="main">
+   
 
         <div id="header">
-            <h4 style="color: white; text-align: center; margin: 1%;">CSV File Viewer</h4>
-            <!-- <div style="display: flex; flex-direction: row; align-items: center;">
-                <h4 style="color: white;">CSV File Viewer</h4>
-            </div> -->
+            <h1 style="height:100%; color: white; text-align: center; ">CSV File Viewer</h1>
         </div>
     
         <div id="fileSubmitDiv">
-            <h4 id="fileSubmitDivHeading">Please select files:</h4>
-            <% if(msg.length>0){ %>
-                <small id="fileSubmitDivMsg"><%= msg %></small>
-            <% } %>
-            <form action="/files" method="post" enctype="multipart/form-data" id="fileSubmitForm">
-                <input type="file" id="filesInput" name="files" multiple />
-                <input type="submit">
-            </form>
-        </div>
-    
-        <div id="selectedFilesDiv">
-            <% if(files.length>0){ %>
-                <h4>All Uploaded Files</h4>
-                <form action="/files/selectedFiles" method="POST" id="selectedFilesForm">
-                    <div id="selectedFilesInputsDiv">
-                        
-                        <% for(let i=0;i<files.length; i++){ %>
-                            <div style="margin-bottom: 5px;">
-                                <input type="radio" id=<%= files[i].originalname %> name="fileName" value=<%= files[i].path %>:<%=files[i].originalname %>>
-                                <label for=<%= files[i].originalname %>><%= files[i].originalname %></label>
-                            </div>
-                        <% } %> 
+            <div style="top: 10%; position: absolute; height: 20%; min-width: 20%;">
+                <p class="formHeading">Please select files:</p>
+                <% if(msg.length>0){ %>
+                    <small id="fileSubmitDivMsg"><%= msg %></small>
+                <% } %>
+                <form action="/files" method="post" enctype="multipart/form-data" id="fileSubmitForm" class="form">
+                    <div id="filesInputDiv">
+                        <input type="file" id="filesInput" name="files" multiple  required/>
                     </div>
-                    <div style="display: flex; flex-direction: column; align-items: center;">
-                        <input type="submit">
-                    </div>
+                    <input type="submit">
                 </form>
-            <% } %>
-        </div>
-    
-        <div id="tableDiv">
-            <div id="selectedFiles_SearchBox">
-                <div id="forms">
-                    <div id="searchBox">
-                        <form id="searchByColumnValueForm">
-                        </form>
-                        <div id="resetButton"></div>
-                    </div>
-
-
-                    
-                    <div  id="plotFormDiv">
-                        <form action="" id="plotForm">
-                        </form>
-                    </div>
-                </div>
-
-                <div id="misc">
-                    <div id="displaySelectedFileDiv"></div>
-                    <div id="displayTotalRowsDiv"></div>
-                    <div id="rowsPerColumn"></div>
-                </div>
-
             </div>
-            
-            <table id="table">
-                <thead id="tableHead" style="border: 1px solid black;">
-                    <tr id="columnRow">
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                </tbody>
-            </table>
-
-            <div id="paginationDiv">
-                <!--  -->
-                <div id="buttonsContainer">
-                    <select name="selectNum" id="selectNumOfButtons">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                    </select>
-                    <button id="goToOne"><<</button>
-                    <button id="shiftOneLeft"><</button>
-                    <div id="numsButtonDiv"></div>
-                    <button id="shiftOneRight">></button>
-                    <button id="goToLast">>></button>
-                </div>
-                <div id="pageNumberDiv"><small>Page Number: 1</small></div>
-            </div>
-        </div>
-
-
-
-
-
-        <div id="chartingDiv">
 
         </div>
-        
-    </div>
 
-
-    <!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script> -->
-    
-    <!-- <script type="module" src="/js/functions.js"></script>
-    <script type="module" src="/js/pagination.js"></script>
-    <script type="module" src="/js/script.js"></script> -->
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style2.css">
     <script src="https://kit.fontawesome.com/ca58c8957e.js" crossorigin="anonymous"></script>
     <script src="https://cdn.plot.ly/plotly-2.25.2.min.js" charset="utf-8"></script>
     <title>CSV File Viewer</title>
@@ -11,93 +11,107 @@
 <body>
     <div id="main">
 
-        <div id="header">
-            <h4 style="color: white; text-align: center; margin: 1%;">CSV File Viewer</h4>
-            <!-- <div style="display: flex; flex-direction: row; align-items: center;">
-                <h4 style="color: white;">CSV File Viewer</h4>
-            </div> -->
-            <div style="display: flex; flex-direction: row; align-items: center; margin: 1%;">
-                <button id="displayAnother">
-                    <a href="/">Display another file</a>
-                </button>
+        <section id="header">
+            <div class="headerMembers">
+                <h1>CSV File Viewer</h1>
             </div>
-        </div>
-    
-    
-        <div id="selectedFilesDiv">
-            <% if(files.length>0){ %>
-                <h4>All Uploaded Files</h4>
-                <form action="/files/selectedFiles" method="POST" id="selectedFilesForm">
-                    <div id="selectedFilesInputsDiv">
-                        
-                        <% for(let i=0;i<files.length; i++){ %>
-                            <div style="margin-bottom: 5px;">
-                                <input type="radio" id=<%= files[i].originalname %> name="fileName" value=<%= files[i].path %>:<%=files[i].originalname %>>
-                                <label for=<%= files[i].originalname %>><%= files[i].originalname %></label>
-                            </div>
-                        <% } %> 
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="headerMembers" class="tooltipDiv">
+                <a href="/" id="homeButton"><i class="fa-solid fa-house fa-2xl" style="color: white;"></i></a>
+                <p class="tooltip">Home page</p>
+            </div>
+            
+        </section>
+        
+
+        <section id="selectedFilesDiv" class="sectionStyle">
+            <div style="top: 10%; position: absolute; height: auto; min-height: 20%; width: 50%;">
+                <% if(files.length>0){ %>
+                    <p class="formHeading">All Uploaded Files</p>
+                    <form action="/files/selectedFiles" method="POST" class="form" id="selectedFilesForm">
+                        <div class="radioOptionsContainer">
+                            
+                            <% for(let i=0;i<files.length; i++){ %>
+                                <label class="option" for=<%= files[i].originalname %>>
+                                    
+                                    <input type="radio" id=<%= files[i].originalname %> name="fileName" value=<%= files[i].path %>:<%=files[i].originalname %>>
+                                    <%= files[i].originalname %>
+                                </label>
+                            <% } %> 
+                        </div>
                         <input type="submit">
-                    </div>
-                </form>
-            <% } %>
-        </div>
+                    </form>
+                <% } %>
+            </div>
+
+        </section>
 
 
         
     
-        <div id="tableDiv">
-            <div id="selectedFiles_SearchBox">
+        <section id="tableDiv" class="sectionStyle" style="display: none;">
+            <div id="selectedFiles_SearchBox" style="width: 100%;">
+
+                <div id="misc">
+                    <div id="displaySelectedFileDiv"></div>
+                    
+                    
+                </div>
+
+
                 <div id="forms">
-                    <div id="searchBox">
-                        <form id="searchByColumnValueForm">
+                    
+                    <div id="displayTotalRowsDiv"></div>
+                    <div id="searchBox" class="formBox">
+                        <form id="searchByColumnValueForm" class="formRow">
                         </form>
-                        <div id="resetButton"></div>
                     </div>
 
 
                     
-                    <div  id="plotFormDiv">
-                        <form action="" id="plotForm">
+                    <div  id="plotFormDiv" class="formBox">
+                        <form action="" id="plotForm" class="formRow">
                         </form>
                     </div>
+
+
+                    <div id="rowsPerColumn" class="formBox"></div>
                 </div>
 
-                <div id="misc">
-                    <div id="displaySelectedFileDiv"></div>
-                    <div id="displayTotalRowsDiv"></div>
-                    <div id="rowsPerColumn"></div>
-                </div>
+                
 
             </div>
             
-            <table id="table">
-                <thead id="tableHead" style="border: 1px solid black;">
-                    <tr id="columnRow">
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                </tbody>
+            <div style="height: 70%; width: 95%; overflow-y: scroll; overflow-x: scroll; background-color: #E8E8E8; border: 1px solid black;">
+                <table id="table" style="height: auto; width: 100%; background-color: #E8E8E8;">
+                    <thead id="tableHead" style=" background-color: rgb(22, 15, 15); color: white;">
+                        <tr id="columnRow">
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
             </table>
+            </div>
 
-            <div id="paginationDiv">
+            
+
+
+            <div id="paginationDiv" class="margin">
                 <!--  -->
                 <div id="buttonsContainer">
-                    <select name="selectNum" id="selectNumOfButtons">
+                    <!-- <select name="selectNum" id="selectNumOfButtons">
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="25">25</option>
-                    </select>
-                    <button id="goToOne"><<</button>
-                    <button id="shiftOneLeft"><</button>
+                    </select> -->
+                    <button id="goToOne" class="arrowButton"><<</button>
+                    <button id="shiftOneLeft" class="arrowButton"><</button>
                     <div id="numsButtonDiv"></div>
-                    <button id="shiftOneRight">></button>
-                    <button id="goToLast">>></button>
+                    <button id="shiftOneRight" class="arrowButton">></button>
+                    <button id="goToLast" class="arrowButton">>></button>
                 </div>
                 <div id="pageNumberDiv"><small>Page Number: 1</small></div>
             </div>
-        </div>
+        </section>
 
         <div id="chartingDiv">
 
