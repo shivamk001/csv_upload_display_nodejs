@@ -24,5 +24,5 @@ app.use('/', require('./routes'))
 
 
 app.listen(process.env.PORT, (err)=>{
-    console.log('App up and running on 8888')
+    console.log(`App up and running on ${process.env.PORT}`)
 })

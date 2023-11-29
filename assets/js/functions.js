@@ -172,7 +172,7 @@ function createRowsPerColumnSelect() {
 
     let $rowsPerColumn = $('#rowsPerColumn')
     // $rowsPerColumnSelect.empty()
-    console.log($rowsPerColumn)
+    //console.log($rowsPerColumn)
     let $select = $(`    
         <select value="paginationVal" id="rowsPerColumnSelect">
             <option value="10">10</option>
@@ -367,7 +367,9 @@ export function selectedFilesFormOnSubmit(event) {
     //console.log('Form Submitted')
     //console.log($('#selectedFilesForm').serialize().split('='))
     let fileName = $('#selectedFilesForm').serialize().split('=')[1]
-    fileName = fileName.replace('%5C', '\\').replace('%3A', ':')
+    //console.log(fileName)
+    fileName = fileName.replace('%5C', '\\').replace('%3A', ':').replace('%2F', '/')
+    //console.log(fileName)
     //console.log(fileName)
     $.ajax({
         type: 'POST',
@@ -393,7 +395,7 @@ export function selectedFilesFormOnSubmit(event) {
         },
         success: function (response) {
             let { fileName, data } = response
-            console.log(fileName, data)
+            //console.log(fileName, data)
             setColumnHeader([...data[0]])
             setAllData([...data.slice(1)])
             setDatum([...data.slice(1)])
