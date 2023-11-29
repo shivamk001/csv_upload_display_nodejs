@@ -27,7 +27,9 @@
             <div style="top: 10%; position: absolute; height: auto; min-height: 20%; width: 50%;">
                 <% if(files.length>0){ %>
                     <p class="formHeading">All Uploaded Files</p>
-                    <form action="/files/selectedFiles" method="POST" class="form" id="selectedFilesForm">
+                     <form action="/files/selectedFiles" method="POST" class="form" id="selectedFilesForm"> 
+                        <!-- <form class="form" id="selectedFilesForm">  -->
+                        <small id="fileSubmitDivMsg"></small>
                         <div class="radioOptionsContainer">
                             
                             <% for(let i=0;i<files.length; i++){ %>

@@ -366,63 +366,71 @@ function pageButtonClick(pageNumber) {
 export function selectedFilesFormOnSubmit(event) {
     //console.log('Form Submitted')
     //console.log($('#selectedFilesForm').serialize().split('='))
+    event.preventDefault()
     let fileName = $('#selectedFilesForm').serialize().split('=')[1]
     //console.log(fileName)
-    fileName = fileName.replace('%5C', '\\').replace('%3A', ':').replace('%2F', '/')
-    //console.log(fileName)
-    //console.log(fileName)
-    $.ajax({
-        type: 'POST',
-        url: '/files/selectedFiles',
-        data: JSON.stringify({ fileName: fileName }),
-        contentType: 'application/json',
-        dataType: 'json',
-        encode: true,
-        error: function(err){
+    
+    if(fileName===undefined){
+        let fileSubmitDivMsg=document.getElementById('fileSubmitDivMsg')
+        fileSubmitDivMsg.style.display='block'
+        fileSubmitDivMsg.innerHTML='Please select a file.'
+    }
+    else{
+        fileName = fileName.replace('%5C', '\\').replace('%3A', ':').replace('%2F', '/')
+        $.ajax({
+            type: 'POST',
+            url: '/files/selectedFiles',
+            data: JSON.stringify({ fileName: fileName }),
+            contentType: 'application/json',
+            dataType: 'json',
+            encode: true,
+            error: function(err){
+                
+                let filename=err.responseJSON.fileName.split(':')[1]
+                let errorText=err.responseJSON.error
+                // console.log(filename, errorText)
+                console.log(filename, errorText)
+                let $errorText=$(`
+                    <small style="color: red;">${errorText}</small>
+                    <button id="displayAnother">
+                        <a href="/">Display another file</a>
+                    </button>
+                `)
+                $('#selectedFilesDiv').empty();
+                $('#selectedFilesDiv').append($errorText)
+            },
+            success: function (response) {
+                let { fileName, data } = response
+                //console.log(fileName, data)
+                setColumnHeader([...data[0]])
+                setAllData([...data.slice(1)])
+                setDatum([...data.slice(1)])
+                setFileName(fileName)
+    
+                $('#selectedFilesDiv').remove();
+                $('#fileSubmitDiv').remove();
+                $('#tableDiv').css('display', 'flex')
+    
+                //table, header, form stuff
+                //createHeader()
+                createSelectedFilesDiv()
+                createTotalRowsDiv()
+                createRowsPerColumnSelect()
+                createSelectColumn()
+                createResetButton()
+                createPlotForm()
+                createTable(datum.slice(0, rowPerPage))
+    
+                //pagination stuff
+                attachEventListenersPagination(pageButtonClick)
+                setDocumentLengthPagination(datum.length)
+                //this function takes care of a lot of things in pagination
+                setRowPerPage(rowPerPage)
+            },
             
-            let filename=err.responseJSON.fileName.split(':')[1]
-            let errorText=err.responseJSON.error
-            // console.log(filename, errorText)
-            console.log(filename, errorText)
-            let $errorText=$(`
-                <small style="color: red;">${errorText}</small>
-                <button id="displayAnother">
-                    <a href="/">Display another file</a>
-                </button>
-            `)
-            $('#selectedFilesDiv').empty();
-            $('#selectedFilesDiv').append($errorText)
-        },
-        success: function (response) {
-            let { fileName, data } = response
-            //console.log(fileName, data)
-            setColumnHeader([...data[0]])
-            setAllData([...data.slice(1)])
-            setDatum([...data.slice(1)])
-            setFileName(fileName)
+        })
+        event.preventDefault();
+    }
 
-            $('#selectedFilesDiv').remove();
-            $('#fileSubmitDiv').remove();
-            $('#tableDiv').css('display', 'flex')
-
-            //table, header, form stuff
-            //createHeader()
-            createSelectedFilesDiv()
-            createTotalRowsDiv()
-            createRowsPerColumnSelect()
-            createSelectColumn()
-            createResetButton()
-            createPlotForm()
-            createTable(datum.slice(0, rowPerPage))
-
-            //pagination stuff
-            attachEventListenersPagination(pageButtonClick)
-            setDocumentLengthPagination(datum.length)
-            //this function takes care of a lot of things in pagination
-            setRowPerPage(rowPerPage)
-        },
-        
-    })
-    event.preventDefault();
 }
 
