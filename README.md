@@ -2,7 +2,7 @@
 
 You can access the running project [here](http://ec2-54-163-207-62.compute-1.amazonaws.com).
 
-## ENDPOINTS:
+## SETTING UP THE PROJECT:
 
 a. Run the following line of code:
 
